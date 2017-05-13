@@ -25,6 +25,10 @@ function load(url: string) {
     }).retryWhen(retryStrategy({attempts: 3, delay: 1500}));
 }
 
+function loadWithFetch(url: string) {
+    return fetch(url);
+}
+
 function retryStrategy({attempts = 4, delay = 1000}) {
     return errors => errors.scan((acc, value) => {
         console.log(acc, value);
@@ -49,4 +53,4 @@ click.flatMap(e => load("moviess.json"))
     movies => renderMovies(movies),
     error => console.log(`error: ${error}`),
     () => console.log("complete")
-    );
+);
